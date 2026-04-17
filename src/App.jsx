@@ -126,7 +126,9 @@ function DashboardSlide({ dataObj }) {
         {/* Net Profit */}
         <div className="glass-panel chart-card" style={{ height: '400px' }}>
           <h3 style={{ color: '#F1E095' }}><Briefcase color="#F1E095" /> Net Profit (AED)</h3>
-          <ResponsiveContainer width="100%" height="100%">
+          <div className="chart-responsive-wrapper">
+    <div className="chart-responsive-inner">
+      <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data} margin={{ top: 30, right: 30, left: 20, bottom: 20 }}>
               <defs>
                 <linearGradient id="colorNet" x1="0" y1="0" x2="0" y2="1">
@@ -143,12 +145,16 @@ function DashboardSlide({ dataObj }) {
               </Area>
             </AreaChart>
           </ResponsiveContainer>
+    </div>
+  </div>
         </div>
 
         {/* Investor Profit */}
         <div className="glass-panel chart-card" style={{ height: '400px' }}>
           <h3 style={{ color: '#10B981' }}><DollarSign color="#10B981" /> Investors Profit (AED)</h3>
-          <ResponsiveContainer width="100%" height="100%">
+          <div className="chart-responsive-wrapper">
+    <div className="chart-responsive-inner">
+      <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data} margin={{ top: 30, right: 30, left: 20, bottom: 20 }}>
               <defs>
                 <linearGradient id="colorInv" x1="0" y1="0" x2="0" y2="1">
@@ -165,12 +171,16 @@ function DashboardSlide({ dataObj }) {
               </Area>
             </AreaChart>
           </ResponsiveContainer>
+    </div>
+  </div>
         </div>
 
         {/* Investment (Grams) */}
         <div className="glass-panel chart-card" style={{ height: '400px' }}>
           <h3 style={{ color: '#F1E095' }}><PieChart color="#F1E095" /> Investment (Grams)</h3>
-          <ResponsiveContainer width="100%" height="100%">
+          <div className="chart-responsive-wrapper">
+    <div className="chart-responsive-inner">
+      <ResponsiveContainer width="100%" height="100%">
              <BarChart data={data} margin={{ top: 30, right: 30, left: 20, bottom: 20 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.1)" />
               <XAxis dataKey="month" stroke="var(--text-muted)" tickMargin={15}/>
@@ -181,13 +191,17 @@ function DashboardSlide({ dataObj }) {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
+    </div>
+  </div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
           {/* Total Fixed Costs */}
           <div className="glass-panel chart-card" style={{ height: '400px' }}>
             <h3 style={{ color: '#EF4444' }}><Activity color="#EF4444" /> Total Fixed Costs (AED)</h3>
-            <ResponsiveContainer width="100%" height="100%">
+            <div className="chart-responsive-wrapper">
+    <div className="chart-responsive-inner">
+      <ResponsiveContainer width="100%" height="100%">
               <LineChart data={data} margin={{ top: 30, right: 20, left: 0, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.1)" />
                 <XAxis dataKey="month" stroke="var(--text-muted)" tickMargin={15} />
@@ -198,12 +212,16 @@ function DashboardSlide({ dataObj }) {
                 </Line>
               </LineChart>
             </ResponsiveContainer>
+    </div>
+  </div>
           </div>
           
           {/* Per KG Profit */}
           <div className="glass-panel chart-card" style={{ height: '400px' }}>
             <h3 style={{ color: '#8B5CF6' }}><TrendingUp color="#8B5CF6" /> Per KG Profit (AED)</h3>
-            <ResponsiveContainer width="100%" height="100%">
+            <div className="chart-responsive-wrapper">
+    <div className="chart-responsive-inner">
+      <ResponsiveContainer width="100%" height="100%">
               <LineChart data={data} margin={{ top: 30, right: 20, left: 0, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.1)" />
                 <XAxis dataKey="month" stroke="var(--text-muted)" tickMargin={15}/>
@@ -214,6 +232,8 @@ function DashboardSlide({ dataObj }) {
                 </Line>
               </LineChart>
             </ResponsiveContainer>
+    </div>
+  </div>
           </div>
         </div>
 
@@ -319,7 +339,9 @@ function GlobalChartSlide({ title, subtitle, dataChunks, dataKeyAed, dataKeyGram
             
             <motion.div whileHover={{ scale: 1.01 }} className="glass-panel chart-card" style={{ height: '400px' }}>
               <h3 style={{ color: colorAed }}><TrendingUp color={colorAed} /> Total in AED</h3>
-              <ResponsiveContainer width="100%" height="100%">
+              <div className="chart-responsive-wrapper">
+    <div className="chart-responsive-inner">
+      <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={chunk.data} margin={{ top: 30, right: 30, left: 20, bottom: 20 }}>
                   <defs>
                     <linearGradient id={`grad${dataKeyAed}`} x1="0" y1="0" x2="0" y2="1">
@@ -336,11 +358,15 @@ function GlobalChartSlide({ title, subtitle, dataChunks, dataKeyAed, dataKeyGram
                   </Area>
                 </AreaChart>
               </ResponsiveContainer>
+    </div>
+  </div>
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.01 }} className="glass-panel chart-card" style={{ height: '400px' }}>
               <h3 style={{ color: colorGrams }}><PieChart color={colorGrams} /> Volume in Grams</h3>
-              <ResponsiveContainer width="100%" height="100%">
+              <div className="chart-responsive-wrapper">
+    <div className="chart-responsive-inner">
+      <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chunk.data} margin={{ top: 30, right: 30, left: 20, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.1)" />
                   <XAxis dataKey="month" stroke="var(--text-muted)" tickMargin={15} interval={"preserveStartEnd"} minTickGap={20}/>
@@ -351,6 +377,8 @@ function GlobalChartSlide({ title, subtitle, dataChunks, dataKeyAed, dataKeyGram
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
+    </div>
+  </div>
             </motion.div>
           </div>
         ))}
