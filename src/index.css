@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --primary-gold: #F1E095;
+  --light-gold: #FFF5C2;
+  --dark-gold: #B39E50;
+  --emerald-dark: #143532;
+  --emerald-main: #225955;
+  --emerald-light: #2A6E6A;
+  --glass-bg: rgba(34, 89, 85, 0.5);
+  --glass-border: rgba(241, 224, 149, 0.3);
+  --text-main: #F3F4F6;
+  --text-muted: #A0C0BD;
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: radial-gradient(circle at top right, var(--emerald-main), var(--emerald-dark) 80%);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--primary-gold);
+}
+
+.presentation-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(to right, var(--light-gold), var(--primary-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header-logo {
+  height: 60px;
+  object-fit: contain;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 4rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(2, 32, 21, 0.9), transparent);
+}
+
+.btn {
+  background: transparent;
+  color: var(--primary-gold);
+  border: 1px solid var(--primary-gold);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(4px);
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--primary-gold);
+  color: var(--emerald-dark);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+/* Charts */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.05);
+}
+
+.recharts-text {
+  fill: var(--text-muted) !important;
+  font-family: var(--font-sans);
+  font-size: 12px;
+}
+
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: var(--emerald-dark) !important;
+  border: 1px solid var(--primary-gold) !important;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+.recharts-tooltip-item {
+  color: var(--light-gold) !important;
+}
+
+/* Dashboard specific */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex: 1;
+}
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  height: 380px;
+}
+
+.chart-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Year Selector */
+.year-selector {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.year-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  font-family: var(--font-serif);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-bottom: 2px solid transparent;
+}
+
+.year-tab.active {
+  color: var(--primary-gold);
+  border-bottom-color: var(--primary-gold);
+}

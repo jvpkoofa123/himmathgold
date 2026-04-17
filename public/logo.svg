@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#022015" rx="50" />
+  <!-- A stylized golden 'H' and 'G' -->
+  <path d="M 120 100 L 120 300 M 280 100 L 280 300 M 120 200 L 280 200" stroke="url(#goldGrad)" stroke-width="30" stroke-linecap="round" fill="none" />
+  <circle cx="200" cy="200" r="140" stroke="url(#goldGrad)" stroke-width="15" fill="none" />
+  <text x="200" y="360" font-family="'Playfair Display', serif" font-size="30" fill="#D4AF37" text-anchor="middle" font-weight="bold">HIMMATH</text>
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCE69B" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#997A15" />
+    </linearGradient>
+  </defs>
+</svg>
