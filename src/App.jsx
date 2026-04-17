@@ -6,15 +6,15 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar, LabelList
 } from 'recharts';
 
-const currencySymbol = 'د.إ';
+const currencySymbol = '';
 
 // Format Values
 const formatCurrency = (value) => {
   if (value === null || value === undefined) return '';
-  if (value >= 1000000000) return currencySymbol + ' ' + (value / 1000000000).toFixed(2) + 'B';
-  if (value >= 1000000) return currencySymbol + ' ' + (value / 1000000).toFixed(2) + 'M';
-  if (value >= 1000) return currencySymbol + ' ' + (value / 1000).toFixed(1) + 'k';
-  return currencySymbol + ' ' + value.toFixed(2);
+  if (value >= 1000000000) return (value / 1000000000).toFixed(2) + 'B';
+  if (value >= 1000000) return (value / 1000000).toFixed(2) + 'M';
+  if (value >= 1000) return (value / 1000).toFixed(1) + 'k';
+  return value.toFixed(2);
 };
 
 const AlternatingLabel = (props) => {
@@ -43,7 +43,7 @@ const CustomTooltip = ({ active, payload, label }) => {
         <p className="text-white mb-2 font-bold" style={{color: '#fff', margin: '0 0 5px 0'}}>{label}</p>
         {payload.map((entry, index) => (
           <p key={`item-${index}`} style={{ color: entry.color, margin: 0, fontSize: '0.9rem', direction: 'ltr' }}>
-            {entry.name}: {entry.value !== null ? currencySymbol + ' ' + entry.value.toLocaleString() : 'N/A'}
+            {entry.name}: {entry.value !== null ? entry.value.toLocaleString() : 'N/A'}
           </p>
         ))}
       </div>
