@@ -196,3 +196,41 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--primary-gold);
   border-bottom-color: var(--primary-gold);
 }
+
+/* Responsive adjustments for Mobile */
+@media (max-width: 768px) {
+  .slide {
+    padding: 1.5rem 1rem 6rem 1rem;
+  }
+  
+  .glass-panel {
+    padding: 1rem;
+  }
+  
+  .nav-buttons {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .gold-gradient-text {
+    font-size: clamp(1.5rem, 6vw, 2.5rem) !important;
+  }
+  
+  h3 {
+    font-size: 1.1rem !important;
+  }
+  
+  p {
+    font-size: 0.9rem !important;
+  }
+  
+  .chart-card {
+    height: 300px !important;
+  }
+  
+  .header-logo {
+    height: 50px !important;
+  }
+}
