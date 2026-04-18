@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, TrendingUp, DollarSign, Activity, PieChart, Briefcase, Award } from 'lucide-react';
+import { ChevronRight, ChevronLeft, TrendingUp, DollarSign, Activity, PieChart, Briefcase, Award, Printer, Download } from 'lucide-react';
+import html2canvas from 'html2canvas';
 import { allYearsData, globalSalesData, globalPurchasesData } from './data';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar, LabelList
@@ -34,6 +35,29 @@ const formatGrams = (value) => {
   if (value === null || value === undefined) return '';
   if (value >= 1000) return (value / 1000).toFixed(1) + 'k g';
   return value.toFixed(1) + ' g';
+};
+
+const handleDownloadChart = async (id, fileName) => {
+  const element = document.getElementById(id);
+  if (!element) return;
+  const btns = element.querySelectorAll('.download-btn');
+  btns.forEach(btn => btn.style.display = 'none');
+  
+  try {
+    const canvas = await html2canvas(element, { 
+      backgroundColor: '#143532', // Use dark background for charts
+      scale: 2 
+    });
+    const image = canvas.toDataURL("image/png", 1.0);
+    const link = document.createElement('a');
+    link.download = `${fileName}.png`;
+    link.href = image;
+    link.click();
+  } catch (err) {
+    console.error("Failed to capture image", err);
+  } finally {
+    btns.forEach(btn => btn.style.display = 'flex');
+  }
 };
 
 const CustomTooltip = ({ active, payload, label }) => {
@@ -124,8 +148,14 @@ function DashboardSlide({ dataObj }) {
       <div className="dashboard-grid" style={{ marginBottom: '80px', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         
         {/* Net Profit */}
-        <div className="glass-panel chart-card" style={{ height: '400px' }}>
-          <h3 style={{ color: '#F1E095' }}><Briefcase color="#F1E095" /> Net Profit (AED)</h3>
+        {/* Net Profit */}
+        <div id={`chart-net-profit-${year}`} className="glass-panel chart-card" style={{ height: '400px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <h3 style={{ color: '#F1E095', margin: 0 }}><Briefcase color="#F1E095" /> Net Profit (AED)</h3>
+            <button className="download-btn btn" style={{ padding: '0.4rem', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent' }} onClick={() => handleDownloadChart(`chart-net-profit-${year}`, `Net_Profit_${year}`)} title="Download Chart">
+              <Download size={16} color="#F1E095" />
+            </button>
+          </div>
           <div className="chart-responsive-wrapper">
     <div className="chart-responsive-inner">
       <ResponsiveContainer width="100%" height="100%">
@@ -150,8 +180,14 @@ function DashboardSlide({ dataObj }) {
         </div>
 
         {/* Investor Profit */}
-        <div className="glass-panel chart-card" style={{ height: '400px' }}>
-          <h3 style={{ color: '#10B981' }}><DollarSign color="#10B981" /> Investors Profit (AED)</h3>
+        {/* Investor Profit */}
+        <div id={`chart-inv-profit-${year}`} className="glass-panel chart-card" style={{ height: '400px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <h3 style={{ color: '#10B981', margin: 0 }}><DollarSign color="#10B981" /> Investors Profit (AED)</h3>
+            <button className="download-btn btn" style={{ padding: '0.4rem', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent' }} onClick={() => handleDownloadChart(`chart-inv-profit-${year}`, `Investor_Profit_${year}`)} title="Download Chart">
+              <Download size={16} color="#10B981" />
+            </button>
+          </div>
           <div className="chart-responsive-wrapper">
     <div className="chart-responsive-inner">
       <ResponsiveContainer width="100%" height="100%">
@@ -176,8 +212,14 @@ function DashboardSlide({ dataObj }) {
         </div>
 
         {/* Investment (Grams) */}
-        <div className="glass-panel chart-card" style={{ height: '400px' }}>
-          <h3 style={{ color: '#F1E095' }}><PieChart color="#F1E095" /> Investment (Grams)</h3>
+        {/* Investment (Grams) */}
+        <div id={`chart-investment-${year}`} className="glass-panel chart-card" style={{ height: '400px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <h3 style={{ color: '#F1E095', margin: 0 }}><PieChart color="#F1E095" /> Investment (Grams)</h3>
+            <button className="download-btn btn" style={{ padding: '0.4rem', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent' }} onClick={() => handleDownloadChart(`chart-investment-${year}`, `Investment_Grams_${year}`)} title="Download Chart">
+              <Download size={16} color="#F1E095" />
+            </button>
+          </div>
           <div className="chart-responsive-wrapper">
     <div className="chart-responsive-inner">
       <ResponsiveContainer width="100%" height="100%">
@@ -197,8 +239,14 @@ function DashboardSlide({ dataObj }) {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
           {/* Total Fixed Costs */}
-          <div className="glass-panel chart-card" style={{ height: '400px' }}>
-            <h3 style={{ color: '#EF4444' }}><Activity color="#EF4444" /> Total Fixed Costs (AED)</h3>
+          {/* Total Fixed Costs */}
+          <div id={`chart-fixed-cost-${year}`} className="glass-panel chart-card" style={{ height: '400px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <h3 style={{ color: '#EF4444', margin: 0 }}><Activity color="#EF4444" /> Total Fixed Costs (AED)</h3>
+              <button className="download-btn btn" style={{ padding: '0.4rem', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent' }} onClick={() => handleDownloadChart(`chart-fixed-cost-${year}`, `Fixed_Costs_${year}`)} title="Download Chart">
+                <Download size={16} color="#EF4444" />
+              </button>
+            </div>
             <div className="chart-responsive-wrapper">
     <div className="chart-responsive-inner">
       <ResponsiveContainer width="100%" height="100%">
@@ -217,8 +265,14 @@ function DashboardSlide({ dataObj }) {
           </div>
           
           {/* Per KG Profit */}
-          <div className="glass-panel chart-card" style={{ height: '400px' }}>
-            <h3 style={{ color: '#8B5CF6' }}><TrendingUp color="#8B5CF6" /> Per KG Profit (AED)</h3>
+          {/* Per KG Profit */}
+          <div id={`chart-perkg-profit-${year}`} className="glass-panel chart-card" style={{ height: '400px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <h3 style={{ color: '#8B5CF6', margin: 0 }}><TrendingUp color="#8B5CF6" /> Per KG Profit (AED)</h3>
+              <button className="download-btn btn" style={{ padding: '0.4rem', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent' }} onClick={() => handleDownloadChart(`chart-perkg-profit-${year}`, `Per_KG_Profit_${year}`)} title="Download Chart">
+                <Download size={16} color="#8B5CF6" />
+              </button>
+            </div>
             <div className="chart-responsive-wrapper">
     <div className="chart-responsive-inner">
       <ResponsiveContainer width="100%" height="100%">
@@ -337,8 +391,13 @@ function GlobalChartSlide({ title, subtitle, dataChunks, dataKeyAed, dataKeyGram
               {chunk.year}
             </h3>
             
-            <motion.div whileHover={{ scale: 1.01 }} className="glass-panel chart-card" style={{ height: '400px' }}>
-              <h3 style={{ color: colorAed }}><TrendingUp color={colorAed} /> Total in AED</h3>
+            <motion.div id={`global-aed-${title.replace(/\s+/g,'-')}-${index}`} whileHover={{ scale: 1.01 }} className="glass-panel chart-card" style={{ height: '400px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                <h3 style={{ color: colorAed, margin: 0 }}><TrendingUp color={colorAed} /> Total in AED</h3>
+                <button className="download-btn btn" style={{ padding: '0.4rem', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent' }} onClick={() => handleDownloadChart(`global-aed-${title.replace(/\s+/g,'-')}-${index}`, `${title.replace(/\s+/g, '_')}_AED_${chunk.year}`)} title="Download Chart">
+                  <Download size={16} color={colorAed} />
+                </button>
+              </div>
               <div className="chart-responsive-wrapper">
     <div className="chart-responsive-inner">
       <ResponsiveContainer width="100%" height="100%">
@@ -362,8 +421,13 @@ function GlobalChartSlide({ title, subtitle, dataChunks, dataKeyAed, dataKeyGram
   </div>
             </motion.div>
 
-            <motion.div whileHover={{ scale: 1.01 }} className="glass-panel chart-card" style={{ height: '400px' }}>
-              <h3 style={{ color: colorGrams }}><PieChart color={colorGrams} /> Volume in Grams</h3>
+            <motion.div id={`global-grams-${title.replace(/\s+/g,'-')}-${index}`} whileHover={{ scale: 1.01 }} className="glass-panel chart-card" style={{ height: '400px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                <h3 style={{ color: colorGrams, margin: 0 }}><PieChart color={colorGrams} /> Volume in Grams</h3>
+                <button className="download-btn btn" style={{ padding: '0.4rem', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent' }} onClick={() => handleDownloadChart(`global-grams-${title.replace(/\s+/g,'-')}-${index}`, `${title.replace(/\s+/g, '_')}_Grams_${chunk.year}`)} title="Download Chart">
+                  <Download size={16} color={colorGrams} />
+                </button>
+              </div>
               <div className="chart-responsive-wrapper">
     <div className="chart-responsive-inner">
       <ResponsiveContainer width="100%" height="100%">
@@ -389,6 +453,16 @@ function GlobalChartSlide({ title, subtitle, dataChunks, dataKeyAed, dataKeyGram
 
 function App() {
   const [slide, setSlide] = useState(0);
+  const [isPrinting, setIsPrinting] = useState(false);
+  
+  const handlePrint = () => {
+    setIsPrinting(true);
+    // Wait for slide animations and chart rendering to finish before invoking print
+    setTimeout(() => {
+      window.print();
+      setIsPrinting(false);
+    }, 2000); 
+  };
   
   const salesChunks = [
     { year: '2023-2024', data: globalSalesData.slice(0, 7) },
@@ -409,26 +483,51 @@ function App() {
   const prevSlide = () => setSlide((prev) => Math.max(prev - 1, 0));
 
   return (
-    <div className="presentation-container">
-      <AnimatePresence mode="wait">
-        {slide === 0 && <TitleSlide key="title" />}
-        {slide === 1 && <GlobalChartSlide key="salesSlide" title="Sales Performance" subtitle="Year by Year Overview" dataChunks={salesChunks} dataKeyAed="salesAed" dataKeyGrams="salesGrams" colorAed="#F1E095" colorGrams="#F1E095" />}
-        {slide === 2 && <GlobalChartSlide key="purchasesSlide" title="Purchasing Overview" subtitle="Year by Year Overview" dataChunks={purchaseChunks} dataKeyAed="purchaseAed" dataKeyGrams="purchaseGrams" colorAed="#10B981" colorGrams="#10B981" />}
-        {slide > 2 && slide <= allYearsData.length + 2 && <DashboardSlide key={`dashboard-${slide}`} dataObj={allYearsData[slide - 3]} />}
-        {slide === totalSlides - 1 && <AnalysisSlide key="analysis" allData={allYearsData} />}
-      </AnimatePresence>
-
-      <div className="nav-buttons">
-        <button className="btn" onClick={prevSlide} disabled={slide === 0}>
-          <ChevronLeft size={20} /> Previous
-        </button>
-        <div style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', fontFamily: 'var(--font-serif)', letterSpacing: '2px' }}>
-          {slide + 1} / {totalSlides}
+    <div className={`presentation-container ${isPrinting ? 'print-mode' : ''}`}>
+      {isPrinting && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'var(--emerald-dark)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="print-overlay">
+          <h2 className="gold-gradient-text" style={{ fontSize: '2rem' }}>Preparing PDF format...</h2>
         </div>
-        <button className="btn" onClick={nextSlide} disabled={slide === totalSlides - 1}>
-          Next <ChevronRight size={20} />
-        </button>
-      </div>
+      )}
+      
+      {!isPrinting ? (
+        <AnimatePresence mode="wait">
+          {slide === 0 && <TitleSlide key="title" />}
+          {slide === 1 && <GlobalChartSlide key="salesSlide" title="Sales Performance" subtitle="Year by Year Overview" dataChunks={salesChunks} dataKeyAed="salesAed" dataKeyGrams="salesGrams" colorAed="#F1E095" colorGrams="#F1E095" />}
+          {slide === 2 && <GlobalChartSlide key="purchasesSlide" title="Purchasing Overview" subtitle="Year by Year Overview" dataChunks={purchaseChunks} dataKeyAed="purchaseAed" dataKeyGrams="purchaseGrams" colorAed="#10B981" colorGrams="#10B981" />}
+          {slide > 2 && slide <= allYearsData.length + 2 && <DashboardSlide key={`dashboard-${slide}`} dataObj={allYearsData[slide - 3]} />}
+          {slide === totalSlides - 1 && <AnalysisSlide key="analysis" allData={allYearsData} />}
+        </AnimatePresence>
+      ) : (
+        <div className="print-all-container">
+          <TitleSlide key="title-print" />
+          <GlobalChartSlide key="salesSlide-print" title="Sales Performance" subtitle="Year by Year Overview" dataChunks={salesChunks} dataKeyAed="salesAed" dataKeyGrams="salesGrams" colorAed="#F1E095" colorGrams="#F1E095" />
+          <GlobalChartSlide key="purchasesSlide-print" title="Purchasing Overview" subtitle="Year by Year Overview" dataChunks={purchaseChunks} dataKeyAed="purchaseAed" dataKeyGrams="purchaseGrams" colorAed="#10B981" colorGrams="#10B981" />
+          {allYearsData.map((dataObj, index) => (
+            <DashboardSlide key={`dashboard-print-${index}`} dataObj={dataObj} />
+          ))}
+          <AnalysisSlide key="analysis-print" allData={allYearsData} />
+        </div>
+      )}
+
+      {!isPrinting && (
+        <div className="nav-buttons">
+          <button className="btn" onClick={prevSlide} disabled={slide === 0}>
+            <ChevronLeft size={20} /> Previous
+          </button>
+          <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+            <div style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-serif)', letterSpacing: '2px' }}>
+              {slide + 1} / {totalSlides}
+            </div>
+            <button className="btn" onClick={handlePrint} title="Download as PDF" style={{ padding: '0.5rem 1rem' }}>
+              <Printer size={18} /> Export PDF
+            </button>
+          </div>
+          <button className="btn" onClick={nextSlide} disabled={slide === totalSlides - 1}>
+            Next <ChevronRight size={20} />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -256,3 +256,56 @@ h1, h2, h3, h4, h5, h6 {
     min-width: 1200px;
   }
 }
+
+/* Print Mode Styles */
+@media print {
+  body {
+    background: var(--emerald-main) !important;
+    background-image: radial-gradient(circle at top right, var(--emerald-main), var(--emerald-dark) 80%) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    overflow-y: visible !important;
+  }
+  
+  .presentation-container {
+    display: block !important;
+  }
+
+  .print-all-container {
+    display: block !important;
+  }
+
+  .slide {
+    page-break-after: always;
+    break-after: page;
+    min-height: 100vh;
+    padding: 2rem !important;
+    margin: 0 auto !important;
+  }
+  
+  .nav-buttons, .print-overlay {
+    display: none !important;
+  }
+
+  .glass-panel {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid var(--primary-gold) !important;
+  }
+  
+  /* Ensure charts don't overflow sideways during print */
+  .chart-responsive-wrapper {
+    overflow: visible !important;
+  }
+  
+  .chart-responsive-inner {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  
+  .dashboard-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
