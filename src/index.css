@@ -304,8 +304,8 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .dashboard-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 1.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
   }
 }
